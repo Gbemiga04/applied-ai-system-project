@@ -252,96 +252,9 @@ This project says that I can extend a prior software project, integrate AI retri
 add automated and guardrail testing, document trade-offs, and communicate reproducible evidence
 to future employers and teammates.
 
-## Presentation
+## Video Presentation
 
-**Target length:** 5–7 minutes
-
-### 1. Problem and Base Project — 45–60 seconds
-
-PawPal+ began as a Module 2 Python and Streamlit pet-care scheduling project. It helped pet
-owners register pets, create recurring care tasks, organize tasks by priority, detect conflicts,
-find open time slots, and save data in JSON.
-
-PawPal+ solved scheduling problems, but it did not explain pet-care guidance or show where that
-guidance came from. This project extends it with a local RAG Care-Plan Advisor that combines
-retrieved guidance with the user's current schedule.
-
-**Suggested screenshot:** Home screen or a pet-care task list.
-
-<!-- Replace this comment with:
-![PawPal+ task interface](assets/pawpal-task-interface.png)
--->
-
-### 2. Live Demonstration — 2–3 minutes
-
-Demonstrate the system in this order:
-
-1. Start the application with `streamlit run app.py`.
-2. Add or select a pet and a high-priority medication task.
-3. Enter: **How should I schedule medication?**
-4. Point out the retrieved source, confidence score, and veterinary-safety disclaimer.
-5. Enter: **What is quantum cryptography?**
-6. Show that the system refuses to answer because the question is unsupported.
-7. Optionally run `python evaluate_advisor.py` to show 3/3 passing cases.
-
-**Suggested screenshots:** Advisor answer, source citation, unsupported-question refusal,
-and evaluation output.
-
-<!-- Replace these comments with screenshots:
-![Medication advice](assets/medication-advice.png)
-![Unsupported-question refusal](assets/unsupported-refusal.png)
-![Evaluation results](assets/evaluation-results.png)
--->
-
-### 3. Architecture and Design — 60–90 seconds
-
-The system validates input, retrieves relevant sections from a local Markdown knowledge base,
-combines those sections with PawPal+ task and conflict data, assembles a grounded response,
-and returns sources and confidence.
-
-The data then reaches three review paths:
-
-- Automated pytest and evaluation-harness checks.
-- JSON Lines logs containing questions, sources, confidence, and retrieved sections.
-- Human or peer review of medical accuracy, citation quality, and safe failure behavior.
-
-**Suggested screenshot:** Mermaid architecture diagram or rendered diagram export.
-
-<!-- Replace this comment with:
-![PawPal+ system architecture](assets/architecture.png)
--->
-
-### 4. Reliability and Trade-Offs — 60 seconds
-
-The final automated run collected 28 tests and passed all 28. The evaluation harness passed
-3/3 predefined medication, unsupported-topic, and exercise cases.
-
-Key trade-offs:
-
-- The system is local and reproducible, but retrieval is lexical rather than semantic.
-- A template response is easier to validate, but it is less conversational than a generative API.
-- Confidence is a retrieval-support heuristic, not measured medical accuracy.
-- The system refuses unsupported questions rather than inventing an answer.
-
-**Suggested screenshot:** Terminal output from `python -m pytest` or
-`python evaluate_advisor.py`.
-
-### 5. Ethics and Reflection — 45–60 seconds
-
-The system does not make diagnoses or change medication doses. It displays sources, includes a
-general-guidance disclaimer, and refuses unrelated questions. It may still be unsafe for
-species-specific, urgent, or individual medical decisions.
-
-The project taught me that an AI feature needs retrieval, application logic, guardrails,
-logging, testing, and clear limitations to operate responsibly. One AI suggestion was accepted:
-using RAG for the care-plan advisor. One implementation approach was revised: stop words and
-unsupported-topic checks were added to prevent unrelated lexical matches.
-
-### 6. Closing — 15–30 seconds
-
-PawPal+ demonstrates that AI can extend ordinary scheduling software while remaining grounded,
-traceable, and reproducible. It is a foundation for more advanced semantic retrieval and
-professional veterinary review.
+Loom walkthrough: *Add the Loom link after recording.*
 
 ## Limitations
 
