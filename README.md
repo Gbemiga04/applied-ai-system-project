@@ -254,7 +254,7 @@ to future employers and teammates.
 
 ## Video Presentation
 
-Loom walkthrough: *Add the Loom link after recording.*
+Loom walkthrough: https://www.loom.com/share/dcc4b77b41b847aa9dd0da36d2040ebd
 
 ## Limitations
 
