@@ -4,10 +4,14 @@ from pathlib import Path
 import streamlit as st
 
 from pawpal_system import Owner, Pet, Scheduler, Task
+from src.care_advisor import CareAdvisor
 
 st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="centered")
 
 DATA_FILE = Path(__file__).with_name("data.json")
+KNOWLEDGE_FILE = Path(__file__).with_name("data") / "pet_care_knowledge.md"
+ADVISOR_LOG = Path(__file__).with_name("assets") / "advisor_log.jsonl"
+care_advisor = CareAdvisor(KNOWLEDGE_FILE, ADVISOR_LOG)
 
 
 def save_owner_name() -> None:
@@ -180,3 +184,28 @@ else:
             )
         else:
             st.info("No pending tasks to schedule.")
+
+    st.subheader("RAG Care-Plan Advisor")
+    st.caption(
+        "Answers are grounded in the local PawPal knowledge base and include "
+        "source sections and a confidence score."
+    )
+    advisor_question = st.text_area(
+        "Ask a pet-care scheduling question",
+        placeholder="How should I handle overlapping medication and walk tasks?",
+        key="advisor_question",
+    )
+    if st.button("Ask advisor"):
+        try:
+            advisor_response = care_advisor.advise(owner, advisor_question)
+        except (ValueError, FileNotFoundError) as error:
+            st.error(str(error))
+        else:
+            st.markdown(advisor_response.answer)
+            if advisor_response.sources:
+                st.caption(
+                    f"Sources: {', '.join(advisor_response.sources)} | "
+                    f"Confidence: {advisor_response.confidence:.0%}"
+                )
+            else:
+                st.caption("No supporting source retrieved.")

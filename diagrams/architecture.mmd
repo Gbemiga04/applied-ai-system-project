@@ -1,7 +1,12 @@
 flowchart TD
-    A[User Input] --> B[Input Validation]
-    B --> C[Core AI System]
-    C --> D[Output Validation]
-    D --> E[User Response]
-    C --> F[Logging and Evaluation]
-    F --> G[Reliability Metrics]
+    A[Streamlit or CLI User] --> B[Input Validation]
+    B --> C[CareAdvisor]
+    C --> D[Lexical Knowledge Retrieval]
+    D --> E[Local Pet-Care Knowledge]
+    C --> F[PawPal Owner and Scheduler]
+    F --> G[Priority Tasks and Conflicts]
+    D --> H[Grounded Response Assembly]
+    G --> H
+    H --> I[Sources and Confidence]
+    I --> J[User Response]
+    C --> K[JSON Lines Log]

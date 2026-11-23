@@ -132,7 +132,7 @@ def test_completing_daily_task_creates_next_occurrence() -> None:
     task = make_task("Walk", time(8, 0))
     pet.add_task(task)
     owner.add_pet(pet)
-    today = date(2026, 10, 14)
+    today = date.today()
 
     next_task = Scheduler(owner).mark_task_completed(task, today=today)
 
