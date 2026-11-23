@@ -153,6 +153,9 @@ Confidence: 20%
 The project includes automated tests for both the original PawPal logic and the new RAG
 components. The last local run collected 28 tests and passed all 28.
 
+AI collaboration and one accepted/revised implementation decision are documented in
+[model_card.md](model_card.md), in **AI Collaboration → Collaboration Examples**.
+
 ## Limitations
 
 - Retrieval is lexical, not semantic vector search.

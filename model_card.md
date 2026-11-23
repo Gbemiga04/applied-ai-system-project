@@ -16,6 +16,17 @@ debug failures, and prepare documentation. The implementation was validated by r
 tests, local execution, and explicit source/retrieval checks. AI-generated suggestions were
 reviewed manually rather than assumed correct.
 
+### Collaboration Examples
+
+**Suggestion accepted:** The suggestion to extend the existing PawPal+ project with a RAG-based
+Care-Plan Advisor was accepted because it builds on the repository's scheduling logic, uses a
+local knowledge source, and remains reproducible without an external API.
+
+**Suggestion rejected or revised:** The original retrieval approach was revised to remove broad,
+frequently used words such as "what," "when," "how," and "the" from lexical matching. This
+prevented unrelated questions from retrieving general routines by ordinary wording and was
+reinforced by a refusal test for unsupported topics.
+
 ## Intended Use
 
 Intended users are pet owners who already use PawPal+ to organize routine care tasks. Suitable
