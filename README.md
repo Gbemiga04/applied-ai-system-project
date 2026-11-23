@@ -177,6 +177,41 @@ components. The last local run collected 28 tests and passed all 28.
 AI collaboration and one accepted/revised implementation decision are documented in
 [model_card.md](model_card.md), in **AI Collaboration → Collaboration Examples**.
 
+## Reproducible Command Evidence
+
+Run the complete automated suite:
+
+```powershell
+python -m pytest
+```
+
+```text
+============================= test session starts =============================
+collected 28 items
+test_pawpal_system.py ...................                                [ 67%]
+tests\test_care_advisor.py ....                                          [ 82%]
+tests\test_pawpal.py .....                                               [100%]
+============================= 28 passed in 0.05s ==============================
+```
+
+Run the predefined RAG and guardrail cases:
+
+```powershell
+python evaluate_advisor.py
+```
+
+```text
+PawPal+ RAG Evaluation
+PASS: medication retrieval
+  confidence=90%
+PASS: unsupported refusal
+  confidence=20%
+  sources=none
+PASS: exercise retrieval
+  confidence=75%
+Summary: 3/3 passed
+```
+
 ## Testing Summary
 
 **What worked:** Retrieval returned the appropriate medication, exercise, and conflict sections;
