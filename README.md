@@ -4,9 +4,13 @@
 
 **Base project:** [ai110-module2show-pawpal-starter](https://github.com/Gbemiga04/ai110-module2show-pawpal-starter)
 
-PawPal+ started as a Module 2 Python/Streamlit pet-care scheduling system. This applied AI
-extension retains pet/task management, priority scheduling, recurrence, conflict detection,
-open-slot finding, and JSON persistence, then adds a retrieval-augmented care-plan advisor.
+PawPal+ started as a Module 2 Python/Streamlit system for helping pet owners organize routine
+care tasks. Its original goals were to track pets and tasks, build priority-first schedules,
+detect conflicts, find open time slots, support recurring care, and preserve data in JSON.
+
+This applied AI extension retains that scheduling foundation and adds a retrieval-augmented
+care-plan advisor that grounds recommendations in a local knowledge source. It also contributes
+source citations, confidence scores, refusal behavior, logging, and automated reliability tests.
 
 ## What the System Does
 
@@ -26,6 +30,11 @@ external AI service.
 
 See [diagrams/architecture.mmd](diagrams/architecture.mmd).
 
+The diagram separates input validation, local retrieval, PawPal scheduling, grounded response
+assembly, and audit logging. Knowledge retrieval and scheduling context are combined before the
+system produces a cited answer. Automated pytest cases and human/peer review validate behavior,
+while the JSON Lines log preserves inputs, sources, confidence, and failures for later inspection.
+
 ```mermaid
 flowchart TD
     A[Streamlit or CLI User] --> B[Input Validation]
@@ -39,6 +48,10 @@ flowchart TD
     H --> I[Sources and Confidence]
     I --> J[User Response]
     C --> K[JSON Lines Log]
+    J --> L[Human or Peer Review]
+    K --> M[Automated Test and Evaluation Harness]
+    L --> N[Pass Fail and Reliability Summary]
+    M --> N
 ```
 
 ## Setup
@@ -76,6 +89,14 @@ python main_advisor.py
 ```powershell
 python -m pytest
 ```
+
+## Run the Evaluation Harness
+
+```powershell
+python evaluate_advisor.py
+```
+
+The harness runs predefined retrieval and refusal cases and prints pass/fail scores.
 
 The tests cover the original scheduling behavior and the RAG additions:
 
@@ -155,6 +176,46 @@ components. The last local run collected 28 tests and passed all 28.
 
 AI collaboration and one accepted/revised implementation decision are documented in
 [model_card.md](model_card.md), in **AI Collaboration → Collaboration Examples**.
+
+## Testing Summary
+
+**What worked:** Retrieval returned the appropriate medication, exercise, and conflict sections;
+unsupported questions were refused; empty input was rejected; and source/confidence reporting
+was consistent. All 28 automated tests passed.
+
+**What did not work initially:** A general-routines chunk could be retrieved for an unrelated
+question, and one base test used a stale fixed date. These failures led to stop-word filtering,
+unsupported-topic refusal checks, and a date-relative recurrence test.
+
+**What I learned:** Lexical RAG can be reproducible and useful but is sensitive to wording.
+Explicit guardrails and negative tests are necessary because a plausible answer can still be
+unsupported or medically unsafe.
+
+## Design Decisions
+
+- **Local knowledge instead of a hosted API:** PawPal+ remains runnable and reproducible without
+  API credentials, and pet data does not leave the user's computer.
+- **Lexical retrieval instead of vector embeddings:** Lexical matching is easier to inspect and
+  test in a four-hour project, though it misses semantically equivalent wording.
+- **Template assembly instead of free-form generation:** This limits unsupported elaboration and
+  ensures source, confidence, and disclaimer fields accompany the answer.
+- **Refusal over guessing:** Unsupported topics receive a safe fallback instead of adding plausible
+  but ungrounded pet-care claims.
+
+## Reflection
+
+This project taught me that an AI feature is only useful when its retrieval, application logic,
+guardrails, and tests operate together. Building PawPal+ showed me how to transform an existing
+prototype into a traceable, maintainable system while recognizing that confidence is a measurement
+of support, not proof of medical accuracy.
+
+## Portfolio
+
+**GitHub:** https://github.com/Gbemiga04/applied-ai-system-project
+
+This project says that I can extend a prior software project, integrate AI retrieval responsibly,
+add automated and guardrail testing, document trade-offs, and communicate reproducible evidence
+to future employers and teammates.
 
 ## Limitations
 

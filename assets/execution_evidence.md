@@ -53,3 +53,23 @@ python -m py_compile app.py main.py main_advisor.py pawpal_system.py src/care_ad
 ```
 
 Result: all entry points compiled successfully with no syntax errors.
+
+## Evaluation Harness
+
+Command:
+
+```powershell
+python evaluate_advisor.py
+```
+
+Result:
+
+```text
+PASS: medication retrieval
+  confidence=90%
+PASS: unsupported refusal
+  confidence=20%
+PASS: exercise retrieval
+  confidence=75%
+Summary: 3/3 passed
+```

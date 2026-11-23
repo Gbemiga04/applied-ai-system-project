@@ -47,6 +47,14 @@ The system must not be used to:
 - Treat toxic exposure or medical emergencies
 - Make claims about species-specific care without professional information
 
+### Misuse Prevention
+
+The system does not generate prescriptions or change medication doses. Unsupported questions
+receive an explicit refusal, medical answers include a disclaimer and source, and the interface
+does not collect or transmit pet data to an external service. Privacy-sensitive details should
+still be avoided in logged questions, and future deployments should restrict or remove logs,
+require consent, and add veterinary review before clinical use.
+
 ## Data and Retrieval
 
 The knowledge source is `data/pet_care_knowledge.md`, curated for this project. Documents are
@@ -92,6 +100,13 @@ Automated tests verify:
 - Task persistence and validation
 
 The local automated run collected 28 tests and passed all 28.
+
+### Surprising Testing Results
+
+The test suite showed that a question containing ordinary pet-care words could retrieve broad
+routine guidance even when the topic was unrelated. This demonstrated that lexical overlap alone
+is not enough evidence for safe answers. The stop-word filter and unsupported-topic refusal were
+added as a direct result of that finding.
 
 No human medical accuracy evaluation has been completed. A future release should be reviewed by
 a veterinarian or qualified animal-care professional before broad use.

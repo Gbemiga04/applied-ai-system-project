@@ -10,3 +10,7 @@ flowchart TD
     H --> I[Sources and Confidence]
     I --> J[User Response]
     C --> K[JSON Lines Log]
+    L[Automated pytest Evaluation] --> M[Pass Fail and Reliability Summary]
+    N[Human or Peer Review] --> M
+    J --> N
+    K --> L
